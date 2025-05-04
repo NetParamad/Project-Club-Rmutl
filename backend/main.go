@@ -1,19 +1,22 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/gofiber/fiber/v2"
+	"github.com/netparamad/project-club-rmutl/database"
+	"github.com/netparamad/project-club-rmutl/database/migration"
+	"github.com/netparamad/project-club-rmutl/routes"
 )
 
 func main() {
-	fmt.Println("Hello, World!")
 
 	app := fiber.New()
-	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Hello, World!")
-	},
-	)
-	app.Listen(":3000")
+	// Database
+	database.DatabaseInit()
+	// Migration
+	migration.RunMigration()
+	// Routes
+	routes.RouteInit(app)
+	
+	app.Listen(":5000")
 
 }
