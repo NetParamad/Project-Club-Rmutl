@@ -1,6 +1,7 @@
 package database
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -11,7 +12,7 @@ import (
 var DB *gorm.DB
 
 func DatabaseInit() {
-	dsn := os.Getenv("DATABASE_URL")
+	dsn := os.Getenv("DATABASE_URL") + "?TimeZone=Asia/Bangkok"
 	if dsn == "" {
 		log.Fatal("DATABASE_URL is not set")
 	}
@@ -21,4 +22,5 @@ func DatabaseInit() {
 	if err != nil {
 		log.Fatalf("failed to connect database: %v", err)
 	}
+	fmt.Println("Database connected successfully")
 }
